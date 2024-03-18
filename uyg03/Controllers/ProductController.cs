@@ -43,7 +43,7 @@ namespace uyg03.Controllers
             if (_context.Products.Count(c => c.Name == dto.Name) > 0)
             {
                 result.Status = false;
-                result.Messsage = "Girilen Ürün Adı Kayıtlıdır!";
+                result.Message = "Girilen Ürün Adı Kayıtlıdır!";
                 return result;
             }
             var product = _mapper.Map<Product>(dto);
@@ -52,7 +52,7 @@ namespace uyg03.Controllers
             _context.Products.Add(product);
             _context.SaveChanges();
             result.Status = true;
-            result.Messsage = "Ürün Eklendi";
+            result.Message = "Ürün Eklendi";
             return result;
         }
 
@@ -64,7 +64,7 @@ namespace uyg03.Controllers
             if (product == null)
             {
                 result.Status = false;
-                result.Messsage = "Ürün Bulunamadı!";
+                result.Message = "Ürün Bulunamadı!";
                 return result;
             }
             product.Name = dto.Name;
@@ -75,7 +75,7 @@ namespace uyg03.Controllers
             _context.Products.Update(product);
             _context.SaveChanges();
             result.Status = true;
-            result.Messsage = "Ürün Düzenlendi";
+            result.Message = "Ürün Düzenlendi";
             return result;
         }
 
@@ -88,13 +88,13 @@ namespace uyg03.Controllers
             if (product == null)
             {
                 result.Status = false;
-                result.Messsage = "Ürün Bulunamadı!";
+                result.Message = "Ürün Bulunamadı!";
                 return result;
             }
             _context.Products.Remove(product);
             _context.SaveChanges();
             result.Status = true;
-            result.Messsage = "Ürün Silindi";
+            result.Message = "Ürün Silindi";
             return result;
         }
     }

@@ -3,6 +3,6 @@
     public class ResultDto
     {
         public bool Status { get; set; }
-        public string Messsage { get; set; }
+        public string Message { get; set; }
     }
 }

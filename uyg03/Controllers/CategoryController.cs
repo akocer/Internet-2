@@ -50,7 +50,7 @@ namespace uyg03.Controllers
             if (_context.Categories.Count(c => c.Name == dto.Name) > 0)
             {
                 result.Status = false;
-                result.Messsage = "Girilen Kategori Adı Kayıtlıdır!";
+                result.Message = "Girilen Kategori Adı Kayıtlıdır!";
                 return result;
             }
             var category = _mapper.Map<Category>(dto);
@@ -59,7 +59,7 @@ namespace uyg03.Controllers
             _context.Categories.Add(category);
             _context.SaveChanges();
             result.Status = true;
-            result.Messsage = "Kategori Eklendi";
+            result.Message = "Kategori Eklendi";
             return result;
         }
 
@@ -71,7 +71,7 @@ namespace uyg03.Controllers
             if (category == null)
             {
                 result.Status = false;
-                result.Messsage = "Kategori Bulunamadı!";
+                result.Message = "Kategori Bulunamadı!";
                 return result;
             }
             category.Name = dto.Name;
@@ -81,7 +81,7 @@ namespace uyg03.Controllers
             _context.Categories.Update(category);
             _context.SaveChanges();
             result.Status = true;
-            result.Messsage = "Kategori Düzenlendi";
+            result.Message = "Kategori Düzenlendi";
             return result;
         }
 
@@ -94,13 +94,13 @@ namespace uyg03.Controllers
             if (category == null)
             {
                 result.Status = false;
-                result.Messsage = "Kategori Bulunamadı!";
+                result.Message = "Kategori Bulunamadı!";
                 return result;
             }
             _context.Categories.Remove(category);
             _context.SaveChanges();
             result.Status = true;
-            result.Messsage = "Kategori Silindi";
+            result.Message = "Kategori Silindi";
             return result;
         }
     }
