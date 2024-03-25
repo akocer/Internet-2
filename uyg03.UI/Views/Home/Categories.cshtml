@@ -70,7 +70,7 @@
                 $.each(data, function (i, item) {
                     var bg = item.isActive ? 'bg-success' : 'bg-danger';
 
-                    tr += '<tr><td>' + item.id + '</td><td>' + item.name + '</td><td><span class="badge ' + bg + '">' + (item.isActive ? 'Aktif' : 'Pasif') + '</span></td><td>' + FormatDate(item.created) + '</td><td>' + FormatDate(item.updated) + '</td><td><button class="btn btn-outline-primary btn-sm edit" id=' + item.id + '>Düzenle</td></tr>'
+                    tr += '<tr><td>' + item.id + '</td><td>' + item.name + '</td><td><span class="badge ' + bg + '">' + (item.isActive ? 'Aktif' : 'Pasif') + '</span></td><td>' + FormatDate(item.created) + '</td><td>' + FormatDate(item.updated) + '</td><td><a href="/Products/' + item.id + '" class="btn btn-outline-primary btn-sm ">Ürünler</a><button class="btn btn-outline-primary btn-sm ms-2 edit" id=' + item.id + '>Düzenle</td></tr>'
                 });
 
                 $("#tbCategoryList tbody").append(tr);
@@ -153,6 +153,64 @@
 
             });
 
+
+            $("#btnEdit").click(function () {
+
+                var id = $("#txtId").val();
+                var name = $("#txtName").val();
+                var isActive = $("#cbIsActive").is(":checked");
+                var category = new Object();
+                category.Id = id;
+                category.Name = name;
+                category.IsActive = isActive;
+
+                $.ajax({
+                    url: ApiBaseUrl + "Categories",
+                    method: "PUT",
+                    data: JSON.stringify(category),
+                    contentType: "application/json",
+                    success: function (data) {
+                        $("#result").show();
+                        if (data.status) {
+                            $("#result").removeClass().addClass("alert alert-success");
+                            CategoryList();
+                        }
+                        else {
+                            $("#result").removeClass().addClass("alert alert-danger");
+                        }
+                        $("#result").html(data.message);
+                        $("#result").fadeOut(3000);
+                    },
+                    error: function () { }
+                });
+
+
+            });
+
+            $("#btnDelete").click(function () {
+                console.log("sil");
+                var id = $("#txtId").val();
+                $.ajax({
+                    url: ApiBaseUrl + "Categories/" + id,
+                    method: "DELETE",
+                    contentType: "application/json",
+                    success: function (data) {
+                        $("#result").show();
+                        if (data.status) {
+                            $("#result").removeClass().addClass("alert alert-success");
+                            CategoryList();
+                        }
+                        else {
+                            $("#result").removeClass().addClass("alert alert-danger");
+                        }
+                        $("#result").html(data.message);
+                        $("#result").fadeOut(3000);
+                    },
+                    error: function () { }
+                });
+
+
+            });
         });
     </script>
 }

@@ -27,8 +27,13 @@ namespace uyg03.UI.Controllers
             ViewBag.ApiBaseUrl = ApiBaseUrl;
             return View();
         }
-        public IActionResult Products()
+
+        [Route("Products/{id}")]
+        public IActionResult Products(int id)
         {
+            string ApiBaseUrl = _configuration["ApiBaseUrl"]!;
+            ViewBag.ApiBaseUrl = ApiBaseUrl;
+            ViewBag.CatId = id;
             return View();
         }
 
