@@ -49,6 +49,15 @@
     <script>
         $(document).ready(function () {
             var ApiBaseUrl = "@ViewBag.ApiBaseUrl";
+
+
+            var token = localStorage.getItem("token");
+            if (token == "" || token == null) {
+                location.href = "/Login";
+                return false;
+            }
+
+
             CategoryList();
             $("#btnEdit").hide();
             $("#btnDelete").hide();
@@ -57,11 +66,19 @@
                 $.ajax({
                     url: ApiBaseUrl + "Categories",
                     method: "GET",
+                    headers: {
+                        "Authorization": "Bearer " + token
+                    },
                     contentType: "application/json",
                     success: function (data) {
                         CategoryListToTable(data);
                     },
-                    error: function () { }
+                    error: function (e) {
+                        if (e.status == 401) {
+                            localStorage.removeItem("token");
+                            location.href = "/Login";
+                        }
+                    }
                 });
             }
             function CategoryListToTable(data) {
@@ -102,6 +119,9 @@
                     method: "POST",
                     data: JSON.stringify(category),
                     contentType: "application/json",
+                    headers: {
+                        "Authorization": "Bearer " + token
+                    },
                     success: function (data) {
                         $("#result").show();
                         if (data.status) {
@@ -114,7 +134,12 @@
                         $("#result").html(data.message);
                         $("#result").fadeOut(3000);
                     },
-                    error: function () { }
+                    error: function (e) {
+                        if (e.status == 401) {
+                            localStorage.removeItem("token");
+                            location.href = "/Login";
+                        }
+                    }
                 });
 
             });
@@ -124,6 +149,9 @@
                     url: ApiBaseUrl + "Categories/" + id,
                     method: "GET",
                     contentType: "application/json",
+                    headers: {
+                        "Authorization": "Bearer " + token
+                    },
                     success: function (data) {
                         $("#txtId").val(data.id);
                         $("#txtName").val(data.name);
@@ -135,7 +163,12 @@
 
                         $("#editHeader").html("Kategori Düzenle - Sil");
                     },
-                    error: function () { }
+                    error: function (e) {
+                        if (e.status == 401) {
+                            localStorage.removeItem("token");
+                            location.href = "/Login";
+                        }
+                    }
                 });
 
 
@@ -169,6 +202,9 @@
                     method: "PUT",
                     data: JSON.stringify(category),
                     contentType: "application/json",
+                    headers: {
+                        "Authorization": "Bearer " + token
+                    },
                     success: function (data) {
                         $("#result").show();
                         if (data.status) {
@@ -181,7 +217,12 @@
                         $("#result").html(data.message);
                         $("#result").fadeOut(3000);
                     },
-                    error: function () { }
+                    error: function (e) {
+                        if (e.status == 401) {
+                            localStorage.removeItem("token");
+                            location.href = "/Login";
+                        }
+                    }
                 });
 
 
@@ -194,6 +235,9 @@
                     url: ApiBaseUrl + "Categories/" + id,
                     method: "DELETE",
                     contentType: "application/json",
+                    headers: {
+                        "Authorization": "Bearer " + token
+                    },
                     success: function (data) {
                         $("#result").show();
                         if (data.status) {
@@ -206,7 +250,12 @@
                         $("#result").html(data.message);
                         $("#result").fadeOut(3000);
                     },
-                    error: function () { }
+                    error: function (e) {
+                        if (e.status == 401) {
+                            localStorage.removeItem("token");
+                            location.href = "/Login";
+                        }
+                    }
                 });
 
 

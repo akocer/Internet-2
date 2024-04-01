@@ -38,8 +38,13 @@ namespace uyg03.UI.Controllers
         }
 
 
-
-
+        [Route("Login")]
+        public IActionResult Login()
+        {
+            string ApiBaseUrl = _configuration["ApiBaseUrl"]!;
+            ViewBag.ApiBaseUrl = ApiBaseUrl;
+            return View();
+        }
 
 
 

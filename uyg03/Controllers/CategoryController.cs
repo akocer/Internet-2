@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using uyg03.Dtos;
@@ -8,6 +9,7 @@ namespace uyg03.Controllers
 {
     [Route("api/Categories")]
     [ApiController]
+    [Authorize]
     public class CategoryController : ControllerBase
     {
         private readonly AppDbContext _context;
