@@ -47,6 +47,7 @@ namespace uyg03.Controllers
             return productDtos;
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ResultDto Post(CategoryDto dto)
         {
             if (_context.Categories.Count(c => c.Name == dto.Name) > 0)
@@ -67,6 +68,7 @@ namespace uyg03.Controllers
 
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public ResultDto Put(CategoryDto dto)
         {
             var category = _context.Categories.Where(s => s.Id == dto.Id).SingleOrDefault();
@@ -90,6 +92,7 @@ namespace uyg03.Controllers
 
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(Roles = "Admin")]
         public ResultDto Delete(int id)
         {
             var category = _context.Categories.Where(s => s.Id == id).SingleOrDefault();

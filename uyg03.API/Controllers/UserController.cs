@@ -140,12 +140,6 @@ namespace uyg03.API.Controllers
             return token;
         }
 
-        public async Task<ResultDto> SignOut()
-        {
-            await _signInManager.SignOutAsync();
-            result.Status = true;
-            result.Message = "";
-            return result;
-        }
+      
     }
 }
