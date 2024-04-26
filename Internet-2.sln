@@ -11,10 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uyg03.API", "uyg03.API\uyg0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "uyg03.UI", "uyg03.UI\uyg03.UI.csproj", "{3F5A24E8-58B7-4617-A3C8-FCD3193EC1A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uyg04-Work.API", "uyg04-Work.API\uyg04-Work.API.csproj", "{A1C70085-2BDA-4482-9E5C-7DFCF75CCAEE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "uyg04-Work.UI", "uyg04-Work.UI\uyg04-Work.UI.csproj", "{9BBB5E88-7838-476D-B602-FF7D186DA6D8}"
-EndProject
+
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
