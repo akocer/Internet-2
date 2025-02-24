@@ -1,6 +1,6 @@
-﻿namespace Uyg.API.Models
+﻿namespace Uyg.API.DTOs
 {
-    public class Result
+    public class ResultDto
     {
         public bool Status { get; set; }
         public string Message { get; set; }

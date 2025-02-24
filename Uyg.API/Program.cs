@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using Uyg.API.Models;
 using Uyg.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +12,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ProductRepository>();
-
+builder.Services.AddDbContext<AppDbContext>(opt =>
+{
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("sqlCon"));
+});
 
 
 

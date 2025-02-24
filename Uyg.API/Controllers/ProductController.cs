@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Uyg.API.DTOs;
 using Uyg.API.Models;
 using Uyg.API.Repositories;
 
@@ -11,7 +12,7 @@ namespace Uyg.API.Controllers
     public class ProductController : ControllerBase
     {
         private readonly ProductRepository _productRepository;
-        Result _result = new Result();
+        ResultDto _result = new ResultDto();
         public ProductController(ProductRepository productRepository)
         {
             _productRepository = productRepository;
@@ -32,7 +33,7 @@ namespace Uyg.API.Controllers
         }
 
         [HttpPost]
-        public Result Add(Product model)
+        public ResultDto Add(Product model)
         {
            _productRepository.Add(model);
             _result.Status = true;
@@ -40,7 +41,7 @@ namespace Uyg.API.Controllers
             return _result;
         }
         [HttpPut]
-        public Result Update(Product model)
+        public ResultDto Update(Product model)
         {
             _productRepository.Update(model);
             _result.Status = true;
@@ -49,7 +50,7 @@ namespace Uyg.API.Controllers
         }
 
         [HttpDelete]
-        public Result Delete(int id) {
+        public ResultDto Delete(int id) {
 
             _productRepository.Delete(id);
             _result.Status = true;
