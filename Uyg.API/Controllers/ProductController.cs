@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Uyg.API.DTOs;
@@ -12,30 +13,35 @@ namespace Uyg.API.Controllers
     public class ProductController : ControllerBase
     {
         private readonly ProductRepository _productRepository;
+        private readonly IMapper _mapper;
         ResultDto _result = new ResultDto();
-        public ProductController(ProductRepository productRepository)
+        public ProductController(ProductRepository productRepository, IMapper mapper)
         {
             _productRepository = productRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public List<Product> List()
+        public List<ProductDto> List()
         {
             var products = _productRepository.GetList();
-            return products;
+            var productDtos=_mapper.Map<List<ProductDto>>(products); 
+            return productDtos;
         }
 
         [HttpGet("{id}")]
-        public Product GetById(int id)
+        public ProductDto GetById(int id)
         {
             var product = _productRepository.GetById(id);
-            return product;
+            var productDto=_mapper.Map<ProductDto>(product);       
+            return productDto;
         }
 
         [HttpPost]
-        public ResultDto Add(Product model)
+        public ResultDto Add(ProductDto model)
         {
-           _productRepository.Add(model);
+           var product=_mapper.Map<Product>(model);
+            _productRepository.Add(product);
             _result.Status = true;
             _result.Message = "Kayıt Eklendi";
             return _result;
@@ -43,7 +49,8 @@ namespace Uyg.API.Controllers
         [HttpPut]
         public ResultDto Update(Product model)
         {
-            _productRepository.Update(model);
+            var product = _mapper.Map<Product>(model);
+            _productRepository.Update(product);
             _result.Status = true;
             _result.Message = "Kayıt GüncelLendi";
             return _result;
