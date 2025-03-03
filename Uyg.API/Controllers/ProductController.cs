@@ -22,44 +22,47 @@ namespace Uyg.API.Controllers
         }
 
         [HttpGet]
-        public List<ProductDto> List()
+        public async Task<List<ProductDto>> List()
         {
-            var products = _productRepository.GetList();
+            var products = await _productRepository.GetAllAsync();
             var productDtos=_mapper.Map<List<ProductDto>>(products); 
             return productDtos;
         }
 
         [HttpGet("{id}")]
-        public ProductDto GetById(int id)
+        public async  Task<ProductDto> GetById(int id)
         {
-            var product = _productRepository.GetById(id);
+            var product =await _productRepository.GetByIdAsync(id);
             var productDto=_mapper.Map<ProductDto>(product);       
             return productDto;
         }
 
         [HttpPost]
-        public ResultDto Add(ProductDto model)
+        public async Task< ResultDto> Add(ProductDto model)
         {
            var product=_mapper.Map<Product>(model);
-            _productRepository.Add(product);
+            product.Created = DateTime.Now;
+            product.Updated = DateTime.Now;
+            await  _productRepository.AddAsync(product);
             _result.Status = true;
             _result.Message = "Kayıt Eklendi";
             return _result;
         }
         [HttpPut]
-        public ResultDto Update(Product model)
+        public async Task<ResultDto> Update(Product model)
         {
             var product = _mapper.Map<Product>(model);
-            _productRepository.Update(product);
+            product.Updated = DateTime.Now;
+            await _productRepository.UpdateAsync(product);
             _result.Status = true;
             _result.Message = "Kayıt GüncelLendi";
             return _result;
         }
 
         [HttpDelete]
-        public ResultDto Delete(int id) {
+        public async Task<ResultDto> Delete(int id) {
 
-            _productRepository.Delete(id);
+            await _productRepository.DeleteAsync(id);
             _result.Status = true;
             _result.Message = "Kayıt Silindi";
             return _result;

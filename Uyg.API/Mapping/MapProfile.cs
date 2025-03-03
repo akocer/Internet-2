@@ -9,6 +9,7 @@ namespace Uyg.API.Mapping
        public MapProfile() 
         {
             CreateMap<Product,ProductDto>().ReverseMap();
+            CreateMap<Category,CategoryDto>().ReverseMap();
         }
     }
 }
