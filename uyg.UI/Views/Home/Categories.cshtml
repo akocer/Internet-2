@@ -92,7 +92,7 @@ $(document).ready(function(){
                     row+="<td>"+FormatDate(item.created)+"</td>";
                     row+="<td>"+FormatDate(item.updated)+"</td>";
                     row+="<td><span class='text-white badge " + bg +"'>"+status+"</span></td>";
-                     row+="<td><button class='btn btn-primary btn-circle'><i class='fa fa-list'></button><button class='btn btn-warning btn-circle'><i class='fa fa-edit'></i></button></td>"
+                    row+='<td><a class="btn btn-primary btn-circle" href="/Products/'+item.id+'"><i class="fa fa-list"></i></a><button class="btn btn-warning btn-circle"><i class="fa fa-edit"></i></button></td>';
                    row+="</tr>";
                 });
                       $("#tbCategoryList tbody").append(row);
@@ -106,7 +106,7 @@ $(document).ready(function(){
        var category=new Object();
        category.name=name;
        category.IsActive=isActive;
-       console.log(JSON.stringify(category));
+
         $.ajax({
        url: apiBaseUrl + "/Category",
        type: "POST",

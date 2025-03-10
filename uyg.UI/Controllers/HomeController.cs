@@ -27,11 +27,12 @@ namespace uyg.UI.Controllers
             return View();
         }
 
-        [Route("Products")]
-        public IActionResult Products()
+        [Route("Products/{id}")]
+        public IActionResult Products(int id)
         {
             var ApiBaseURL = _configuration["ApiBaseURL"];
             ViewBag.ApiBaseURL = ApiBaseURL;
+            ViewBag.CatId = id;
             return View();
         }
     }
