@@ -1,3 +1,6 @@
+using System.Reflection;
+using Microsoft.EntityFrameworkCore;
+using Uyg.API.Models;
 using Uyg.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,10 +12,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped(typeof(GenericRepository<>));
 builder.Services.AddScoped<ProductRepository>();
-
-
-
+builder.Services.AddScoped<CategoryRepository>();
+builder.Services.AddDbContext<AppDbContext>(opt =>
+{
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("sqlCon"));
+});
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddCors(p => p.AddPolicy("corspolicy", opt =>
+{
+    opt.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+}));
 
 var app = builder.Build();
 
@@ -24,7 +35,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("corspolicy");
 app.UseAuthorization();
 
 app.MapControllers();
